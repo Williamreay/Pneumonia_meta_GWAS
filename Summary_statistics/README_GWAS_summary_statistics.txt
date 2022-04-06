@@ -8,7 +8,7 @@
 
 In downloading these data, you agree to accept these data 'as is' and to not attempt to identify any participants.
 
-Researchers wishing to access the full summary statistics for this study can request access to the 23andMe portion https://research.23andme.com/dataset-access/ and meta-analyse with the FinnGen release 3 summary statistics as outlined in the manuscript
+Researchers wishing to access the full summary statistics for this study can request access to the 23andMe portion https://research.23andme.com/dataset-access/ and meta-analyse with the FinnGen release 6 summary statistics as outlined in the manuscript
 
 ## Column descriptions
 CHR - chromosome of the SNP	
@@ -19,5 +19,7 @@ NEA - non-effect allele
 Effect - beta coefficient, indicative of the log odds
 StdErr - standard error of the above beta coefficient
 P - P value of the association
+Direction - Sign of beta in each cohort
+HetISq, HetChiSq, HetDf, HetPVal: heterogeneity statistics from METAL
 
 

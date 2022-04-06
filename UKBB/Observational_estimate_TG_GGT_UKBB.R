@@ -1,6 +1,6 @@
 ####################################
 
-## Observational effect of triglycerides and GGT on pneumonia
+## Observational effect of GGT on pneumonia
 
 ## William Reay (2020)
 
@@ -43,49 +43,6 @@ UKBB_self_report_ICD10$SMOKING <- as.factor(ifelse(UKBB_self_report_ICD10$f.2016
 UKBB_self_report_ICD10$Self_reported_or_ICD <- as.factor(UKBB_self_report_ICD10$Self_reported_or_ICD)
 
 UKBB_self_report_ICD10$ICD10_pneumonia <- as.factor(UKBB_self_report_ICD10$ICD10_pneumonia)
-
-############# Triglycerides #############
-
-## Filter missing values for TG
-
-TG_UKBB_self_report <- UKBB_self_report_ICD10 %>% filter(!is.na(f.30870.0.0))
-
-## Code individuals as in the top decile (TG > 3.020)
-
-TG_UKBB_self_report$High_TG <- ifelse(TG_UKBB_self_report$f.30870.0.0 > 3.020, 1, 0)
-
-## Scale TG to have zero mean and unit variance
-
-TG_UKBB_self_report$TG_scaled <- as.numeric(scale(TG_UKBB_self_report$f.30870.0.0))
-
-TG_UKBB_self_report$Pneumonia <- ifelse(TG_UKBB_self_report$ICD10_pneumonia == "1", "Pneumonia", "Control")
-
-## Test association - ICD10 pneumonia ONLY - TG as continous variable
-
-ICD10_TG_UKBB <- glm(ICD10_pneumonia ~ SEX*f.21003.0.0 + SEX*I(f.21003.0.0^2) +  SMOKING + f.189.0.0 + f.21003.0.0 + TG_scaled, 
-                             family="binomial", data = TG_UKBB_self_report)
-
-
-exp(cbind(coef(ICD10_TG_UKBB), confint(ICD10_TG_UKBB)))
-
-## Test association - ICD10 pneumonia - top decile TG
-
-Decile_ICD10_TG_UKBB <- glm(ICD10_pneumonia ~ SEX*f.21003.0.0 + SEX*I(f.21003.0.0^2) +  SMOKING + f.189.0.0 + f.21003.0.0 + High_TG, 
-                     family="binomial", data = TG_UKBB_self_report)
-
-exp(cbind(coef(Decile_ICD10_TG_UKBB), confint(Decile_ICD10_TG_UKBB)))
-
-          
-
-## Construct Boxplot
-
-ggplot2.boxplot(data=TG_UKBB_self_report, xName='Pneumonia', yName='f.30870.0.0', groupName = 'Pneumonia',
-                outlier.size=0.8, outlier.alpha = 0.2, ytitle="Triglycerides (mmol/L)",
-                xtitle="ICD-10 pneumonia diagnosis", groupColors=c('#999999','#56B4E9'),
-                showLegend = FALSE, backgroundColor="white", xtitleFont=c(12,"bold", "black"),
-                ytitleFont=c(12,"bold", "black"), xTickLabelFont=c(10, "plain", "black"),
-                yTickLabelFont=c(10, "plain", "black"))
-                                           
 
 
 ################ GGT estimate ###################

@@ -1,0 +1,30 @@
+## METAL commands
+
+## Common variants
+
+# Load the FinnGen influenza associated pneumonia GWAS
+
+MARKER rsids
+ALLELE alt ref
+EFFECT beta
+STDERR sebeta
+PVALUE pval
+SEPARATOR TAB
+PROCESS /home/control/data/users/william/2022_FinnGen_R6_meta/Meta_input/Common_var/Common_var_FinnGen_INFO_0.6.txt
+
+# Load the 23andMe GWAS
+
+MARKER assay.name
+ALLELE EFFECT_ALLELE OTHER_ALLELE
+EFFECT effect
+STDERR stderr
+PVALUE pvalue
+SEPARATOR TAB
+PROCESS /home/control/data/users/william/2022_FinnGen_R6_meta/Meta_input/Common_var/Common_var_23andMe_INFO_0.6.txt
+
+
+# Sample size weighted meta-analysis (IVW)
+SCHEME STDERR
+
+OUTFILE	/home/control/data/users/william/2022_FinnGen_R6_meta/Meta_analysis_output/Common_var_IVW_FinnGen_23andMe_FINAL_RAW_2022 .tbl
+ANALYZE HETEROGENEITY
